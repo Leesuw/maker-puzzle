@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maker_puzzle.www.dao.ImemberDao">
+
+	<insert id="getInsertmemeber" parameterType="memberBean">
+		INSERT INTO
+		M_MEMBER
+		VALUES(#{m_email},#{m_pw},#{m_acceptance},#{m_marketing},'M',${m_date})
+	</insert>
+	
+	<insert id="getInsertmemberprofile" parameterType="memberBean">
+
+		INSERT INTO maker_profile(mpr_email,mpr_nickname,mpr_gender,mpr_login_class)
+		VALUES(#{m_email},#{mpr_nicname},#{mpr_gender},'Normal')
+	</insert>
+	<select id="getSecurityPwd" parameterType="String"
+		resultType="String">
+		SELECT M_PW FROM M_MEMBER WHERE M_EMAIL=#{m_email}
+	</select>
+	<select id="getMemberInfo" parameterType="String"
+		resultType="memberBean">
+		SELECT * FROM M_MEMBER WHERE M_EMAIL=#{m_email}
+	</select>
+	<insert id="getKakaoInsert" parameterType="memberBean">
+		INSERT INTO
+		M_MEMBER (m_email,m_acceptance,m_type)
+		VALUES(#{email},'y','m')
+	</insert>
+	<insert id="getKakaoprofileInsert" parameterType="memberBean">
+
+		INSERT INTO maker_profile(mpr_email,mpr_nickname,mpr_login_class)
+		VALUES(#{email},#{nickname},'Naver')
+	</insert>
+	<select id="memberSelete" resultType="String">
+		SELECT M_EMAIL FROM M_MEMBER WHERE M_EMAIL=#{email}
+	</select>
+	
+	<select id="emailSelect" parameterType="String"
+		resultType="maker_profile">
+		SELECT * FROM maker_profile WHERE MPR_EMAIL=#{id}
+	</select>
+	
+	<select id="emailSelectCheck" parameterType="String" resultType="String">
+		SELECT M_EMAIL FROM M_MEMBER WHERE M_EMAIL=#{email}
+	</select>
+</mapper>
